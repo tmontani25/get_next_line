@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:59:18 by tmontani          #+#    #+#             */
-/*   Updated: 2023/12/04 20:17:18 by tmontani         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:16:44 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ char    *get_next_line(int fd)
     char    *buf;
     int     bytes_read; 
     int     i;
+    char    *line;
 
     i = 0;
     buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-    bytes_read = read(fd, buf, 5);
+    bytes_read = read(fd, buf, BUFFER_SIZE);
     if(bytes_read == -1)
         return ("erreur de lecture dans read");
      buf[bytes_read] = '\0';
@@ -36,6 +37,12 @@ char    *get_next_line(int fd)
     }
     stash[i] = '\0';
     printf(" contenu de stash: %s", stash);
+
+    if (stash = "")
+       line = strdup(stash);
+    else
+        strjoin(line, stash);
+
     return ("salut");
 }
 
