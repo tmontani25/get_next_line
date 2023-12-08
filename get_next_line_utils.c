@@ -6,11 +6,25 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:59:54 by tmontani          #+#    #+#             */
-/*   Updated: 2023/12/05 17:13:28 by tmontani         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:25:00 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char *ft_strcpy(char *dest, const char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
 
 size_t	ft_strlen(const char *str)
 {
@@ -30,7 +44,7 @@ char	*ft_strdup(const char *s)
 	size_t	len;
 	char	*duplicate;
 
-	len = ft_strlen((char *)s) + 1;
+	len = ft_strlen(s) + 1;
 	i = 0;
 	duplicate = malloc(sizeof(char) * len);
 	if (duplicate == NULL)
@@ -42,65 +56,50 @@ char	*ft_strdup(const char *s)
 			i++;
 		}
 		duplicate[i] = '\0';
-	return(duplicate);
+	return (duplicate);
 }
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
+int	ft_strchr(const char *s, int c)
 {
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (dest[i] != '\0' && i < size)
-	{
-		i++;
-	}
-	while (src[j] != '\0' && i + j + 1 < size)
-	{
-		dest[i + j] = src[j];
-		j++;
-	}
-	if (i < size)
-		dest[i + j] = '\0';
-	return (i + ft_strlen(src));
-}
-
-char	*ft_strrchr(const char *s, int c)
-{
+	
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (1);
 	while (s[i])
-		i++;
-	while (i >= 0)
 	{
 		if (s[i] == (char)c)
-			return ((char*)(s + i));
-		i--;
+			return (1);
 	}
-	return (NULL);
+	puts("here");
+	return (0);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	len1;
-	size_t	len2;
 	char	*dst;
 	int		i;
+	int		j;
 
 	i = 0;
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	dst = (char *)malloc ((len1 + len2 + 1) * sizeof(char));
+	j = 0;
+	dst = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!dst)
 		return (NULL);
-	ft_strlcpy(dst, s1);
-	ft_strlcat(dst, s2, (len1 + len2 + 1));
+	dst = ft_strcpy(dst, s1);
+	while (dst[i] != '\0')
+		i++;
+	while (s2[j] != '\0')
+	{
+		dst[i + j] = s2[j];
+		j++;
+	}
+	dst[i + j] = '\0';
 	return (dst);
 }
 
- char *strdup_or_join(char *stash, char *buf)
+ char *ft_strdup_or_join(char *stash, char *buf)
  {
 	char	*temp;
 
@@ -112,5 +111,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		stash = temp;
 		free(temp);
 	}
-	return  (stash);
+	return (stash);
  }
