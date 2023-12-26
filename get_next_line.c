@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:59:18 by tmontani          #+#    #+#             */
-/*   Updated: 2023/12/08 16:39:52 by tmontani         ###   ########.fr       */
+/*   Updated: 2023/12/08 19:04:04 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,18 @@ char *ft_extract_line(const char *stash)
 
 	i = 0;
 	j = 0;
-	while (stash[j])
+	while (stash[j]) 
+	{
+		puts("inside");
 		j++;
-			puts("here");
+	}
+	puts("after");
 	while (stash[i] != '\n')
 		i++;
 	line = (char *)malloc(sizeof(char) * (j - i + 1));
 	if (!line)
 		return (NULL);
-	while (stash[i] != '\n' || stash[i] != '\0')
+	while (stash[i] != '\n' && stash[i] != '\0')
 	{
 		puts("here");
 
@@ -74,7 +77,9 @@ char *ft_read(int fd, char *stash)
 		return(NULL);
 	while (!ft_strchr(stash, '\n' ) && bytes_read != 0)
 	{
+		puts("dans la boucle de ft_read");
 		bytes_read = read(fd, buf, BUFFER_SIZE);
+		printf("bytes_read %d", bytes_read);
 		if (bytes_read == -1)
 		{
 			free(buf);
@@ -90,10 +95,7 @@ char *ft_read(int fd, char *stash)
 char	*get_next_line(int fd)
 {
 	static char	*stash;
-	int			i;
 	char		*line;
-
-	i = 0;
 	
 	stash = ft_read(fd, stash);
 	line = ft_extract_line(stash);
@@ -111,7 +113,7 @@ int	main (void)
 	fd = open("fichier.txt", O_RDONLY);
 	if (fd == -1)
 	{
-		printf("erreur de open");
+		puts("erreur de open");
 		return (0);
 	}
 	get_next_line(fd);

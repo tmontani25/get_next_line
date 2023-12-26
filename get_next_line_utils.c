@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:59:54 by tmontani          #+#    #+#             */
-/*   Updated: 2023/12/08 16:25:00 by tmontani         ###   ########.fr       */
+/*   Updated: 2023/12/08 19:02:11 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	ft_strchr(const char *s, int c)
 		if (s[i] == (char)c)
 			return (1);
 	}
-	puts("here");
 	return (0);
 }
 
