@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:00:21 by tmontani          #+#    #+#             */
-/*   Updated: 2023/12/08 16:30:46 by tmontani         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:31:13 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,17 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <string.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 30
 # endif
 
 char	*get_next_line(int fd);
-char *ft_read(int fd, char *stash);
-char *ft_extract_line(const char *stash);
-char	*ft_keep_rest(char *stash);
-char    *ft_strdup_or_join(char *stash, char *buf);
+char    *ft_read(char *stash, int fd);
+int ft_strchr(char *str, char c);
+int ft_strlen(const char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *str);
-int     ft_strchr(const char *s, int c);
-char    *ft_strcpy(char *dest, const char *src);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+size_t	ft_strlcat(char *dest, const char *src, size_t size);
 #endif
