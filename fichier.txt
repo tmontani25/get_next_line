@@ -1,5 +1,5 @@
-This function attempts to read n
-byte bytes of data from the object
+blalblalalblalblblalalalalalalalalal
+byte bytes of data from the objectrqrqrqrqrqrqrqrqr
  referenced by the descriptor fildes
   into the buffer pointed to by buf.  The read() function 
 starts at a position given by the poi

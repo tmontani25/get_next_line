@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:17:04 by tmontani          #+#    #+#             */
-/*   Updated: 2024/01/09 15:11:05 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:45:21 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,17 @@ char    *ft_keep_rest(char *stash)
         j++;
    keep = (char *)malloc(sizeof(char) * (j - i + 1));
    if (!keep)
-   {
-        free(keep);
         return (NULL);
-   }
    i++;
+   j = 0;
    while(stash[i])
    {
-        keep[i] = stash[i];
+        keep[j] = stash[i];
         i++;
+        j++;
    }
-   keep[i] = '\0';
-    return (keep);
+   keep[j] = '\0';
+   return (keep);
 }
 char *ft_extract_line(char *stash)
 {
@@ -61,7 +60,8 @@ char *ft_extract_line(char *stash)
 		line[i] = stash[i];
 		i++;
 	}
-	line[i] = '\0';
+	line[i] = '\n';
+    line[i + 1] ='\0';
 	return(line);
 }
 
@@ -69,6 +69,7 @@ char *ft_read(int fd, char *stash)
 {
     char    *buf;
     int     bytes_read;
+    char *temp;
 
     bytes_read = 1;
     buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -82,11 +83,19 @@ char *ft_read(int fd, char *stash)
         if (bytes_read == -1)
         {
             free (buf);
-            free (stash);
+            buf = NULL;
+            if (stash)
+                free (stash);
             return (NULL);
         }
-        stash = ft_strjoin(stash, buf);
+        buf[bytes_read] = '\0';
+        puts("1");
+        temp = ft_strjoin(stash, buf);
+        puts("2");
+        stash = temp;
+        free(temp);
     }
+    puts(stash);
     free(buf);
     return (stash);
 }
@@ -94,29 +103,40 @@ char *ft_read(int fd, char *stash)
 char *get_next_line(int fd)
 {
     static char *stash;
-    //char *line;//
-    //char *keep;//
+    char *line;
 
+    if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+    puts(stash);
     stash = ft_read(fd, stash);
-    //line = ft_extract_line(stash);//
-    //keep = ft_keep_rest(stash);//
-    return(stash);
+    line = ft_extract_line(stash);
+    puts("4");
+     if (!ft_strchr(stash, '\n'))
+    {
+        free(stash);
+        puts("5");
+    }
+    else
+    {
+        puts("avant keep");
+        stash = ft_keep_rest(stash);
+        puts("apres keep");
+    }
+    puts("after");
+    return(line);
 }
 
-int main (void)
+int main(void)
 {
-    char *line;
     int fd;
-    fd = open("fichier.txt", O_RDONLY);
-    if (fd == -1)
+    char *line;
+    char path[] = "fichier.txt";
+
+    fd = open(path, O_RDONLY);
+    while ((line = get_next_line(fd)) != NULL)
     {
-        puts("erreur de open");
-        return (0);
+        printf("%s", line);
+        free(line);
     }
-    line = get_next_line(fd);
-    //free(line);//
-    printf("line: %s", line);
-    line = get_next_line(fd);
-    //free (line);//
-    return (0);
+    close(fd);
 }

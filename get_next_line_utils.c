@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:18:02 by tmontani          #+#    #+#             */
-/*   Updated: 2024/01/09 14:42:37 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:20:50 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ char    *ft_strjoin(char *s1, char *s2)
         j++;
     }
     dst[i + j] = '\0';
-    free(s1);
 	return (dst);
 
 }
