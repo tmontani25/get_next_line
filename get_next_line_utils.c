@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:18:02 by tmontani          #+#    #+#             */
-/*   Updated: 2024/01/19 15:20:50 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/01/22 11:35:42 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int ft_strchr(char *str, char c)
     int i;
 
     i = 0;
+    if (!str)
+        return (0);
     while(str[i])
     {
         if(str[i] == c)

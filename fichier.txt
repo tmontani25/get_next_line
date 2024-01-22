@@ -1,7 +1,7 @@
-blalblalalblalblblalalalalalalalalal
+salut ca va hdhdhdhdhdhdhdhdhdhdhdhdhdhdhd
 byte bytes of data from the objectrqrqrqrqrqrqrqrqr
- referenced by the descriptor fildes
-  into the buffer pointed to by buf.  The read() function 
+referenced by the descriptor fildes
+into the buffer pointed to by buf.  The read() function 
 starts at a position given by the poi
 nter associated with fildes. At the end,
- the pointer is incremented by the number of bytes (nbyte) actually read.
+the pointer is incremented by the number of bytes (nbyte) actually.
