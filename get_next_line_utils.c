@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:18:02 by tmontani          #+#    #+#             */
-/*   Updated: 2024/01/22 11:35:42 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:48:48 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ char    *ft_strjoin(char *s1, char *s2)
     char *str;
 
     str = ft_strjoin("salut", "cava");
-    printf("copie: %s", str);
+    //printf("copie: %s", str);
     free(str);
 }*/

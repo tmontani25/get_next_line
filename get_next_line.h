@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:18:33 by tmontani          #+#    #+#             */
-/*   Updated: 2024/01/22 10:03:03 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:44:36 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <string.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 30
+#  define BUFFER_SIZE 5
 # endif
 
 char    *get_next_line(int fd);

@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:17:04 by tmontani          #+#    #+#             */
-/*   Updated: 2024/01/22 12:14:14 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:05:01 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,23 @@ char    *ft_keep_rest(char *stash)
 
     i = 0;
     j = 0;
-    printf("DEBBUG10\n");
+    //printf("DEBBUG10\n");
     while (stash[i] && stash[i] != '\n')
 		i++;
-    printf("DEBBUG11\n");
+    //printf("DEBBUG11\n");
     if (!stash[i])
     {
-        printf("DEBBUG12\n");
+        free(stash);
+        stash = NULL;
         return (NULL);
     }
-    printf("DEBBUG13\n");
+    //printf("DEBBUG13\n");
     while(stash[i] != '\n')
         i++;
-    printf("DEBBUG14\n");
+    //printf("DEBBUG14\n");
     while (stash[j])
         j++;
-    printf("DEBBU15\n");
+    //printf("DEBBU15\n");
    keep = (char *)malloc(sizeof(char) * (j - i + 1));
    if (!keep)
         return (NULL);
@@ -57,26 +58,30 @@ char *ft_extract_line(char *stash)
 
 
 	i = 0;
+    //printf("stash01: %s\n", stash);
     if (!stash[i])
         return (NULL);
-    printf("DEBBUG01\n");
+    //printf("stash02 %s\n", stash);
 	while (stash[i] && stash[i] != '\n')
 		i++;
-    printf("DEBBUG02\n");
+    //printf("stash03 %s\n", stash);
 	line = (char *)malloc(sizeof(char) * (i + 2));
+    //puts("stash04");
+    //puts(stash);   
 	if (!line)
     {
-        printf("DEBBUG03\n");
+        //printf("DEBBUG03\n");
         return (NULL);
     }
-    printf("DEBBUG04\n");
+    //printf("stash 05: %s\n", stash);
     i = 0;
+    //printf("stash 06: %s\n", stash);
 	while (stash[i] && stash[i] != '\n')
 	{
 		line[i] = stash[i];
 		i++;
 	}
-    printf("DEBBUG05\n");
+    //printf("stash 07: %s\n", stash);
     if (stash[i] && stash[i] == '\n')
 	    line[i++] = '\n';
     line[i] ='\0';
@@ -93,32 +98,35 @@ char *ft_read(int fd, char *stash)
     buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
     if(!buf)
         return (NULL);
-    if (stash == NULL || stash[0] == '\0')
+    if (!stash)
     {
-        printf("strdup\n");
+        //printf("strdup\n");
         stash = ft_strdup("");  
     }
     while (bytes_read != 0)
     {
         bytes_read = read(fd, buf, BUFFER_SIZE);
+        //printf("bytes read %d\n", bytes_read);
         if (bytes_read == -1)
         {
             free (buf);
-            buf = NULL;
-            if (stash)
-                free (stash);
+            free (stash);
             return (NULL);
         }
         buf[bytes_read] = '\0';
+        //printf("buf: %s\n", buf);
+        //printf("staaaaash: %s\n", stash);
         
-        temp = ft_strjoin(stash, buf);
-        stash = temp;
+        temp = stash;
+        stash = ft_strjoin(temp, buf);
         if (ft_strchr(stash, '\n'))
             break;
         free(temp);
     }
+    //printf("stash dans read %s\n", stash);
     free(buf);
-    printf("stash apres read: %s\n", stash);
+    //puts("stash dans read 02");
+    //puts(stash);
     return (stash);
 }
 
@@ -129,9 +137,17 @@ char *get_next_line(int fd)
 
     if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-    printf("avant gnl: %s\n", stash);
+    //printf("avant gnl: %s\n", stash);
     stash = ft_read(fd, stash);
+    if (!stash)
+    {
+        free(stash);
+        return(NULL);
+    }
+    //printf("stash avant extract_line: %s\n", stash);
     line = ft_extract_line(stash);
+    //puts("line:");
+    //puts(line);
     //if (!ft_strchr(stash, '\n'))
     //{
     //    puts("free");
@@ -142,17 +158,18 @@ char *get_next_line(int fd)
     //{
     //    puts("avant keep");
     stash = ft_keep_rest(stash);
-    if (!stash)
-        free(stash);
+    //puts("le reste:");
+    //puts(stash);
+   
     //    puts("apres keep");
     //}
     //puts("after");
     if (!line)
     {
-        puts("NULL");
+        //puts("NULL");
         return (NULL);
     }
-    printf("stash: %s\n", stash);
+    //printf("stash: %s\n", stash);
     return(line);
 }
 
@@ -167,7 +184,7 @@ char *get_next_line(int fd)
     fd = open(path, O_RDONLY);
     while ((line = get_next_line(fd)) != NULL)
     {
-        printf("line %d :%s\n", i++, line);
+        //printf("line %d :%s\n", i++, line);
         free(line);
     }
     close(fd);
