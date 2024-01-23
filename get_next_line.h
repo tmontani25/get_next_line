@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:18:33 by tmontani          #+#    #+#             */
-/*   Updated: 2024/01/22 14:44:36 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:01:22 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <string.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 15
 # endif
 
 char    *get_next_line(int fd);
@@ -32,4 +32,5 @@ char    *ft_strdup(char *s);
 size_t  ft_strlen(char *str);
 int     ft_strchr(char *str, char c);
 char    *ft_strcpy(char *dest, const char *src);
+void    checkrest(char *stash);
 #endif
