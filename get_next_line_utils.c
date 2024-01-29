@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:18:02 by tmontani          #+#    #+#             */
-/*   Updated: 2024/01/23 15:37:59 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:42:13 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char    *ft_strjoin(char *s1, char *s2)
     j = 0;
     i = 0;
 	dst = (char *)malloc ((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-    printf("adress dst: %p\n", dst);
+    //printf("adress dst: %p\n", dst);
 
 	if (!dst)
 		return (NULL);

@@ -6,17 +6,17 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:17:04 by tmontani          #+#    #+#             */
-/*   Updated: 2024/01/23 15:59:17 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:43:04 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void checkrest(char *stash)
+/*void checkrest(char *stash)
 {
-    puts("contenu de stash apres keeprest");
+    puts("rest: ");
     puts(stash);
-}
+}*/
 
 char    *ft_keep_rest(char *stash)
 {
@@ -51,6 +51,7 @@ char    *ft_keep_rest(char *stash)
         j++;
    }
    keep[j] = '\0';
+   free(stash);
    return (keep);
 }
 
@@ -107,9 +108,10 @@ char *ft_read(int fd, char *stash)
         buf[bytes_read] = '\0';
         temp = stash;
         stash = ft_strjoin(temp, buf);
+        free(temp);
+        temp = NULL;
         if (ft_strchr(stash, '\n'))
             break;
-        free(temp);
     }
     free(buf);
     return (stash);
@@ -130,13 +132,13 @@ char *get_next_line(int fd)
     }
     line = ft_extract_line(stash);
     stash = ft_keep_rest(stash);
-    checkrest(stash);
+    //checkrest(stash);
     //printf("adress stash: %p\n", stash);
     if (!line)
         return (NULL);
     return(line);
 }
-int main(void)
+/*int main(void)
 {
     int fd;
     int i;
@@ -151,4 +153,4 @@ int main(void)
         free(line);
     }
     close(fd);
-}
+}*/
