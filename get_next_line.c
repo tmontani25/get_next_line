@@ -6,11 +6,18 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:17:04 by tmontani          #+#    #+#             */
-/*   Updated: 2024/01/29 17:00:30 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/01/30 14:03:23 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	*ft_free(char *buf, char *stash)
+{
+	free(buf);
+	free(stash);
+	return (NULL);
+}
 
 char	*ft_keep_rest(char *stash)
 {
@@ -25,24 +32,17 @@ char	*ft_keep_rest(char *stash)
 	if (!ft_strchr(stash, '\n'))
 	{
 		free(stash);
-		stash = NULL;
 		return (NULL);
 	}
 	while (stash[i] != '\n')
 		i++;
-	while (stash[j])
-		j++;
-	keep = (char *)malloc(sizeof(char) * (j - i + 1));
+	keep = (char *)malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
 	if (!keep)
 		return (NULL);
 	i++;
 	j = 0;
 	while (stash[i])
-	{
-		keep[j] = stash[i];
-		i++;
-		j++;
-	}
+		keep[j++] = stash[i++];
 	keep[j] = '\0';
 	free(stash);
 	return (keep);
@@ -89,11 +89,7 @@ char	*ft_read(int fd, char *stash)
 	{
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		if (bytes_read == -1)
-		{
-			free (buf);
-			free (stash);
-			return (NULL);
-		}
+			return (ft_free(buf, stash));
 		buf[bytes_read] = '\0';
 		temp = stash;
 		stash = ft_strjoin(temp, buf);
